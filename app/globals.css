@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b0b0c;
+  --foreground: #e9e7e2;
+  --muted: #8d8b86;
+  --line: #232325;
+  --accent: #7aa7ff;
+  --category: #a9d4ff;
 }
 
 @theme inline {
+  --color-category: var(--category);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
 }
+
+::selection {
+  background: var(--accent);
+  color: #000;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+/* Markdown post body */
+.md {
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--foreground) 90%, transparent);
+}
+.md p, .md ul, .md ol, .md blockquote, .md pre, .md table, .md img, .md hr { margin: 0 0 1.25em; }
+.md li { margin: 0.25em 0; }
+.md h2 { font-family: var(--font-display), serif; font-size: 1.6rem; margin-top: 2em; color: var(--foreground); }
+.md h3 { font-family: var(--font-display), serif; font-size: 1.25rem; margin-top: 1.6em; color: var(--foreground); }
+.md a { text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; }
+.md a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+.md ul { list-style: disc; padding-left: 1.4em; }
+.md ol { list-style: decimal; padding-left: 1.4em; }
+.md blockquote { border-left: 2px solid var(--line); padding-left: 1em; color: var(--muted); }
+.md code { font-family: ui-monospace, monospace; font-size: 0.9em; background: rgba(255,255,255,0.07); padding: 0.1em 0.35em; border-radius: 4px; }
+.md pre { background: rgba(255,255,255,0.05); border: 1px solid var(--line); border-radius: 10px; padding: 1em; overflow-x: auto; }
+.md pre code { background: none; padding: 0; }
+.md img { max-width: 100%; border-radius: 8px; }
+.md hr { border-color: var(--line); }
+.md table { border-collapse: collapse; }
+.md th, .md td { border: 1px solid var(--line); padding: 0.4em 0.8em; }
